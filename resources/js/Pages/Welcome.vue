@@ -29,7 +29,7 @@ defineProps({
           </div>
           <div class="md:mb-12 lg:mb-0">
             <img
-              src="/image.svg"
+              :src="'../storage/static/image.svg'"
               class="w-full h-4/5 rounded-lg shadow-lg"
               alt=""
             />
