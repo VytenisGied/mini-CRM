@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 import BreezeDropdown from '@/Components/Dropdown.vue';
 import BreezeDropdownLink from '@/Components/DropdownLink.vue';
-import BreezeNavLink from '@/Components/NavLink.vue';
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import NavLink from '@/Components/NavLink.vue';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -29,9 +29,15 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
-                                </BreezeNavLink>
+                                </NavLink>
+                                <NavLink :href="route('companies')" :active="route().current('companies')">
+                                    Companies
+                                </NavLink>
+                                <NavLink :href="route('employees')" :active="route().current('employees')">
+                                    Employees
+                                </NavLink>
                             </div>
                         </div>
 
@@ -75,9 +81,15 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
-                        </BreezeResponsiveNavLink>
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('companies')" :active="route().current('companies')">
+                            Companies
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('employees')" :active="route().current('employees')">
+                            Employees
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->

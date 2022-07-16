@@ -27,7 +27,7 @@ const submit = () => {
 
 <template>
     <BreezeGuestLayout>
-        <Head title="Log in" />
+        <Head title="Sign in" />
 
         <BreezeValidationErrors class="mb-4" />
 
@@ -59,7 +59,7 @@ const submit = () => {
                 </Link>
 
                 <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                    Sign in
                 </BreezeButton>
             </div>
         </form>
