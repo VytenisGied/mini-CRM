@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\CompanyController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +29,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/companies', function () {
-    return Inertia::render('Companies');
-})->middleware(['auth', 'verified'])->name('companies');
+
+// Route::get('/companies', function () {
+//     return Inertia::render('Companies');
+// })->middleware(['auth', 'verified'])->name('companies');
+
+Route::get('/companies', [CompanyController::class, 'index'])
+                ->middleware(['auth', 'verified'])->name('companies');
+
+Route::get('/companies/{companyId}', [CompanyController::class, 'getCompany'])
+                ->middleware(['auth', 'verified'])->name('company');
+
 Route::get('/employees', function () {
     return Inertia::render('Employees');
 })->middleware(['auth', 'verified'])->name('employees');
