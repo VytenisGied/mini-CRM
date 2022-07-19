@@ -44,6 +44,7 @@ Route::group([
     Route::get('/{companyId}/edit', 'edit')->name('company.edit');
 
     Route::post('/create', 'store')->name('company.store');
+    Route::post('/{companyId}/edit', 'update')->name('company.update');
     Route::delete('/{companyId}', 'destroy')->name('company.destroy');
 });
 
@@ -55,9 +56,13 @@ Route::group([
   'controller' => EmployeeController::class
 ], function($router) {
   Route::get('/', 'index')->name('employees');
-  Route::get('/create', 'create')->name('empolyee.create');
-  Route::get('/{employeeId}', 'show')->name('empolyee');
-  Route::get('/{employeeId}/edit', 'edit')->name('empolyee.edit');
+  Route::get('/create/{companyId}', 'create')->name('employee.create');
+  Route::get('/{employeeId}', 'show')->name('employee');
+  Route::get('/{employeeId}/edit', 'edit')->name('employee.edit');
+  
+  Route::post('/create', 'store')->name('employee.store');
+  Route::post('/{employeeId}/edit', 'update')->name('employee.update');
+  Route::delete('/{employeeId}', 'destroy')->name('employee.destroy');
 });
 
 require __DIR__.'/auth.php';

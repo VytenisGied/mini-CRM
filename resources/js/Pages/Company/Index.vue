@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Button from '@/Components/Button.vue'
 import CompanyCard from '@/Components/ComCard.vue';
+import PaginationNavigation from '@/Components/PaginationNavigation.vue'
 
 
 defineProps({
@@ -33,11 +34,7 @@ defineProps({
                             <CompanyCard :id='item.id' :name='item.name' :logo='item.logo' />
                           </template>
                         </div>
-                        <div v-if='data.links.length>0' class="container flex justify-center mx-auto mt-6">
-                          <ul class="flex">
-                            <li v-for="link in data.links" :key="link.url"><Link :href="link.url" :class="link.active ? 'text-white bg-blue-600' : 'text-blue-600 bg-white hover:bg-blue-100'" class="h-10 px-5 border  border-blue-600">{{link.label}}</Link></li>
-                          </ul>
-                        </div>
+                        <PaginationNavigation :links="data.links" />
                       </div>
                       <p v-else>No companies found</p>
                     </div>

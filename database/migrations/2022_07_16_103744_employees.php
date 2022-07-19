@@ -26,7 +26,7 @@ return new class extends Migration
         $table->string('phone')->unique()->nullable();
         $table->timestamps();
 
-        $table->foreign('company_id')->references('id')->on('company');
+        $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
       });
     }
 

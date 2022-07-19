@@ -17,15 +17,22 @@ const form = useForm({
   logo: null,
   website: ''
 });
+
+const submit = (companyId) => {
+  form.post(route('company.update', companyId), {
+    preserveState: true,
+    onFinish: () => form.reset(),
+  });
+};
 </script>
 
 <template>
-    <Head :title="'Edit'" />
+    <Head :title="'Edit ' + data.name" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Edit
+                Edit {{data.name}}
             </h2>
         </template>
 
@@ -35,10 +42,10 @@ const form = useForm({
               <div class="p-6 bg-white border-b border-gray-200">
                 <ValidationErrors class="mb-4" />
 
-                <form @submit.prevent="submit">
+                <form @submit.prevent="submit(data.id)">
                   <div>
                     <Label for="name" value="Name" />
-                    <Input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus />
+                    <Input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus />
                   </div>
 
                   <div class="mt-4">
@@ -58,7 +65,7 @@ const form = useForm({
 
                   <div class="flex items-center justify-end mt-4">
                     <Button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                      Create
+                      Edit
                     </Button>
                   </div>
                 </form>

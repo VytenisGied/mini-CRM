@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Employee;
 
 class Company extends Model
 {
@@ -16,4 +17,12 @@ class Company extends Model
     'logo',
     'website',
   ];
+
+  public function employee(){
+    return $this->hasMany(Employee::class, 'company_id');
+  }
+  
+  public function getEmployeesPaginated(){
+    return $this->employee()->paginate(10);
+  }
 }

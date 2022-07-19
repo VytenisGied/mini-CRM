@@ -23,7 +23,7 @@ class EmployeeController extends Controller
     public function index()
     {
       return Inertia::render('Employee/Index', [
-        'data' => Employee::all()
+        'data' => Employee::paginate(10)
       ]);
     }
 
@@ -32,9 +32,11 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-      return Inertia::render('Employee/Create');
+      return Inertia::render('Employee/Create', [
+        'companyId' => $id
+      ]);
     }
 
     /**
@@ -45,7 +47,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validated = $request->validate([
+        'name' => ['required'],
+        'lastname' => ['required'],
+        'company_id' => ['required'],
+        'email' => ['email', 'nullable'],
+        'phone' => ['nullable'],
+      ]);
+
+      $employee = Employee::create($validated);
+
+      return redirect()->route('company', ['companyId' => $employee->company_id]);
     }
 
     /**
@@ -57,7 +69,7 @@ class EmployeeController extends Controller
     public function show($id)
     {
       return Inertia::render('Employee/Employee', [
-        'data' => Employee::findOrFail($id)
+        'data' => Employee::with('company')->findOrFail($id)
       ]);
     }
 
@@ -69,7 +81,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-      return Inertia::render('Employee/Edit');
+      return Inertia::render('Employee/Edit', [
+        'data' => Employee::findOrFail($id)
+      ]);
     }
 
     /**
@@ -81,7 +95,27 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validated = $request->validate([
+        'name' => ['nullable'],
+        'lastname' => ['nullable'],
+        'email' => ['email', 'nullable'],
+        'phone' => ['nullable'],
+      ]);
+
+      $employee = Employee::findOrFail($id);
+
+      if($validated['name']!=null)
+        $employee->name = $validated['name'];
+      if($validated['lastname']!=null)
+        $employee->lastname = $validated['lastname'];
+      if($validated['email']!=null)
+        $employee->email = $validated['email'];
+      if($validated['phone']!=null)
+        $employee->phone = $validated['phone'];
+
+      $employee->save();
+
+      return redirect()->route('employee', ['employeeId' => $employee->id]);
     }
 
     /**
@@ -92,6 +126,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Employee::destroy($id);
+      return redirect()->back();
     }
 }

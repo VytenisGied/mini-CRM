@@ -7,10 +7,6 @@ import Input from '@/Components/Input.vue';
 import Label from '@/Components/Label.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
 
-defineProps({
-    data: String,
-})
-
 const form = useForm({
   name: '',
   email: '',
@@ -19,9 +15,10 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('company.store'), {
-        onFinish: () => form.reset(),
-    });
+  form.post(route('company.store'), {
+    preserveState: true,
+    onFinish: () => form.reset(),
+  });
 };
 </script>
 

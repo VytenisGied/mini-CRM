@@ -8,7 +8,6 @@ use App\Models\Company;
 use App\Providers\RouteServiceProvider;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
-// use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -25,7 +24,7 @@ class CompanyController extends Controller
     public function index()
     {
       return Inertia::render('Company/Index', [
-        'data' => Company::paginate(4)
+        'data' => Company::paginate(10)
       ]);
     }
 
@@ -74,8 +73,10 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
+      $company = Company::findOrFail($id);
       return Inertia::render('Company/Company', [
-        'data' => Company::findOrFail($id)
+        'data' => $company,
+        'employees' => $company->getEmployeesPaginated()
       ]);
     }
 
@@ -88,7 +89,7 @@ class CompanyController extends Controller
     public function edit($id)
     {
       return Inertia::render('Company/Edit', [
-        'data' => Company::all()
+        'data' => Company::findOrFail($id)
       ]);
     }
 
@@ -101,7 +102,34 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validated = $request->validate([
+        'name' => ['nullable'],
+        'email' => ['email', 'nullable'],
+        'logo' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'dimensions:min_width=100,min_height=100', 'max:2048', 'nullable'],
+        'website' => ['url', 'nullable'],
+      ]);
+
+      $company = Company::findOrFail($id);
+
+      if($validated['name']!=null)
+        $company->name = $validated['name'];
+      if($validated['email']!=null)
+        $company->email = $validated['email'];
+      if($validated['website']!=null)
+        $company->website = $validated['website'];
+      
+      if($validated['logo'] != null) {
+        if($company->logo != null)
+          Storage::delete('public' . $company->logo);
+        $temp_path = $validated['logo']->store('public/company_logos/'.$request->user()->id);
+        $path = explode("/", $temp_path);
+        array_shift($path);
+        $company->logo = implode("/", $path);
+      }
+
+      $company->save();
+
+      return redirect()->route('company', ['companyId' => $company->id]);
     }
 
     /**
@@ -116,6 +144,6 @@ class CompanyController extends Controller
       if($company->logo != null)
         Storage::delete('public' . $company->logo);
       Company::destroy($id);
-      return redirect()->route('companies')->with('msg', 'Company deleted');
+      return redirect()->fullUrlWithQuery(['page ' => null])->back();
     }
 }
