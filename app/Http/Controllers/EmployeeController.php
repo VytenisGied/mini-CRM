@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Company;
+use App\Models\Employee;
 use App\Providers\RouteServiceProvider;
 use Inertia\Inertia;
 
-class CompanyController extends Controller
+class EmployeeController extends Controller
 {
     public function __construct() {
       $this->middleware('auth', ['except' => ['']]);
@@ -22,8 +22,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-      return Inertia::render('Company/Index', [
-        'data' => Company::all()
+      return Inertia::render('Employee/Index', [
+        'data' => Employee::all()
       ]);
     }
 
@@ -34,7 +34,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-      return Inertia::render('Company/Create');
+      return Inertia::render('Employee/Create');
     }
 
     /**
@@ -56,8 +56,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-      return Inertia::render('Company/Company', [
-        'data' => Company::findOrFail($id)
+      return Inertia::render('Employee/Employee', [
+        'data' => Employee::findOrFail($id)
       ]);
     }
 
@@ -69,9 +69,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-      return Inertia::render('Company/Edit', [
-        'data' => Company::all()
-      ]);
+      return Inertia::render('Employee/Edit');
     }
 
     /**

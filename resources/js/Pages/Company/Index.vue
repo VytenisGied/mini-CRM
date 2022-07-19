@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 import Button from '@/Components/Button.vue'
 import CompanyCard from '@/Components/ComCard.vue';
 
@@ -20,8 +20,8 @@ defineProps({
             </h2>
         </template>
 
-        <div class="py-12 relative">
-            <Button class="absolute top-3 right-3">Add</Button>
+        <div class="py-4">
+            <Link :href="route('company.create')" class="fixed bottom-4 right-4 px-7 py-3 mb-2 md:mb-0 md:mr-2 bg-blue-600 text-white font-medium text-sm leading-snug rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" role="button">Add</Link>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -31,19 +31,7 @@ defineProps({
                         </template>
                       </div>
                       <p v-else>No companies found</p>
-                        <!-- <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard />
-                        <CompanyCard /> -->
                     </div>
-                    
                 </div>
             </div>
         </div>

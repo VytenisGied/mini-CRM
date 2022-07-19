@@ -22,8 +22,8 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <div>Logo</div>
+                                <Link :href="route('welcome')">
+                                    <img :src="'../storage/static/laravel2.png'" height="38" width="38" alt="CRM Logo">
                                 </Link>
                             </div>
 

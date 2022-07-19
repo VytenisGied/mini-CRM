@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,24 +25,36 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/companies', function () {
-//     return Inertia::render('Companies');
-// })->middleware(['auth', 'verified'])->name('companies');
+/**
+ * Routes for companies, middleware is in controllers
+ */
+Route::group([
+    'prefix' => 'companies',
+    'controller' => CompanyController::class
+], function($router) {
+    Route::get('/', 'index')->name('companies');
+    Route::get('/create', 'create')->name('company.create');
+    Route::get('/{companyId}', 'show')->name('company');
+    Route::get('/{companyId}/edit', 'edit')->name('company.edit');
+});
 
-Route::get('/companies', [CompanyController::class, 'index'])
-                ->middleware(['auth', 'verified'])->name('companies');
-
-Route::get('/companies/{companyId}', [CompanyController::class, 'getCompany'])
-                ->middleware(['auth', 'verified'])->name('company');
-
-Route::get('/employees', function () {
-    return Inertia::render('Employees');
-})->middleware(['auth', 'verified'])->name('employees');
+/**
+ * Routes for employees, middleware is in controllers
+ */
+Route::group([
+  'prefix' => 'employees',
+  'controller' => EmployeeController::class
+], function($router) {
+  Route::get('/', 'index')->name('employees');
+  Route::get('/create', 'create')->name('empolyee.create');
+  Route::get('/{employeeId}', 'show')->name('empolyee');
+  Route::get('/{employeeId}/edit', 'edit')->name('empolyee.edit');
+});
 
 require __DIR__.'/auth.php';
