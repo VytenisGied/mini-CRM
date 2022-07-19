@@ -42,6 +42,9 @@ Route::group([
     Route::get('/create', 'create')->name('company.create');
     Route::get('/{companyId}', 'show')->name('company');
     Route::get('/{companyId}/edit', 'edit')->name('company.edit');
+
+    Route::post('/create', 'store')->name('company.store');
+    Route::delete('/{companyId}', 'destroy')->name('company.destroy');
 });
 
 /**

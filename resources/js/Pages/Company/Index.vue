@@ -7,6 +7,7 @@ import CompanyCard from '@/Components/ComCard.vue';
 
 defineProps({
     data: String,
+    msg: String,
 })
 </script>
 
@@ -25,10 +26,18 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                      <div v-if='data.length>0' class="flex gap-4 flex-wrap justify-center">
-                        <template v-for="item in data" :key='item.id'>
-                          <CompanyCard :id='item.id' :name='item.name' :logo='item.logo' />
-                        </template>
+                      {{msg}}
+                      <div v-if='data.data.length>0'>
+                        <div class="flex gap-4 flex-wrap justify-center">
+                          <template v-for="item in data.data" :key='item.id'>
+                            <CompanyCard :id='item.id' :name='item.name' :logo='item.logo' />
+                          </template>
+                        </div>
+                        <div v-if='data.links.length>0' class="container flex justify-center mx-auto mt-6">
+                          <ul class="flex">
+                            <li v-for="link in data.links" :key="link.url"><Link :href="link.url" :class="link.active ? 'text-white bg-blue-600' : 'text-blue-600 bg-white hover:bg-blue-100'" class="h-10 px-5 border  border-blue-600">{{link.label}}</Link></li>
+                          </ul>
+                        </div>
                       </div>
                       <p v-else>No companies found</p>
                     </div>
