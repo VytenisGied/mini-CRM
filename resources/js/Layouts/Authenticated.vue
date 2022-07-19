@@ -5,6 +5,7 @@ import BreezeDropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Logo from '../../../storage/app/public/static/laravel2.png'
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -23,7 +24,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('welcome')">
-                                    <img :src="'../storage/static/laravel2.png'" height="38" width="38" alt="CRM Logo">
+                                    <img :src="Logo" height="38" width="38" alt="CRM Logo">
                                 </Link>
                             </div>
 
