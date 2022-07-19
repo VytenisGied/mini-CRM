@@ -71,4 +71,4 @@ This will create admin user admin@admin.com with password: password
 | :exclamation: This is very important |
 | ------------------------------------ |
 
-You must use link set in Environment Variables `APP_URL` to access the application in development mode if you don't want to use node you can check our pre-built version of this project in [build branch](https://github.com/user/repo/blob/branch/other_file.md)
+You must use link set in Environment Variables `APP_URL` to access the application in development mode if you don't want to use node you can check our pre-built version of this project in [build branch](https://github.com/VytenisGied/mini-CRM/tree/build)
